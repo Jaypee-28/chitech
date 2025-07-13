@@ -2,6 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import Image from "next/image";
 import EditAccountModal from "./EditAccountModal";
 
 export default function AccountInfo() {
@@ -21,7 +22,7 @@ export default function AccountInfo() {
     <div className="border rounded p-4 relative">
       <div className="flex items-center gap-4">
         {session.user.image ? (
-          <img
+          <Image
             src={session.user.image}
             alt="Profile"
             className="w-16 h-16 rounded-full"

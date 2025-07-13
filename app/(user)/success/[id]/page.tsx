@@ -1,4 +1,5 @@
 // app/(user)/success/[id]/page.tsx
+
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { connectToDB } from "@/lib/mongoose";
@@ -6,11 +7,13 @@ import Order from "@/models/Order";
 import { redirect } from "next/navigation";
 import SuccessPageClient from "./SuccessPageClient";
 
-export default async function OrderSuccessPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+interface Props {
+  params: {
+    id: string;
+  };
+}
+
+export default async function OrderSuccessPage({ params }: Props) {
   const session = await getServerSession(authOptions);
   if (!session) redirect("/login");
 

@@ -51,8 +51,8 @@ export default function CheckoutSummary({
       return null;
 
     const now = new Date();
-    let startDate = new Date(now);
-    let endDate = new Date(now);
+    const startDate = new Date(now);
+    const endDate = new Date(now);
 
     if (formData.deliveryType === "standard") {
       startDate.setDate(startDate.getDate() + 6);

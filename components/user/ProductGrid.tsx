@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useProductFilterStore } from "@/stores/useProductFilterStore";
 import { useCartStore } from "@/stores/useCartStore";
 import { toast } from "react-toastify";
+import Image from "next/image";
 import { formatNaira } from "@/lib/format";
 import MobileCategoryBar from "@/components/user/layout/MobileCategoryBar";
 
@@ -89,7 +90,7 @@ export default function ProductGrid() {
               >
                 {/* Image container */}
                 <div className="w-full h-48 flex items-center justify-center overflow-hidden mb-3">
-                  <img
+                  <Image
                     src={product.images[0]}
                     alt={product.title}
                     className="object-contain h-full w-full rounded-lg"

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import {
   LayoutDashboard,
   Package,
@@ -38,7 +39,7 @@ export default function Sidebar() {
       <div>
         <div className="flex items-center gap-3 mb-8 px-2">
           {user?.image ? (
-            <img
+            <Image
               src={user.image}
               alt="Profile"
               className="w-10 h-10 rounded-full object-cover"

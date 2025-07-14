@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
@@ -208,7 +209,7 @@ export default function CreateProductModal({
               <div className="flex gap-2 overflow-x-auto">
                 {previewUrls.map((url, idx) => (
                   <div key={idx} className="relative w-20 h-20 flex-shrink-0">
-                    <img
+                    <Image
                       src={url}
                       alt={`Preview ${idx}`}
                       className="w-full h-full object-cover rounded-md border"

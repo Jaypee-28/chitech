@@ -3,6 +3,7 @@
 
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { useCartStore } from "@/stores/useCartStore";
+import Image from "next/image";
 
 export default function CartItem({ item }: { item: any }) {
   const { addToCart, removeFromCart } = useCartStore();
@@ -22,7 +23,7 @@ export default function CartItem({ item }: { item: any }) {
 
   return (
     <div className="flex flex-col sm:flex-row gap-4 items-center shadow-lg rounded-md p-4 bg-white">
-      <img
+      <Image
         src={item.image}
         alt={item.title}
         className="w-24 h-24 object-cover rounded"

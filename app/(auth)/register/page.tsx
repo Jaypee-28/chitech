@@ -135,7 +135,7 @@ export default function RegisterPage() {
           disabled={loading}
           className="flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 w-full py-2 rounded-md transition"
         >
-          <img src="/google.svg" alt="Google" className="h-5" />
+          <Image src="/google.svg" alt="Google" className="h-5" />
           {loading ? "Processing..." : "Google"}
         </button>
 

@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -228,8 +229,9 @@ export default function EditProductModal({
               <div className="grid grid-cols-3 gap-2">
                 {existingImages.map((url, idx) => (
                   <div key={idx} className="relative group">
-                    <img
+                    <Image
                       src={url}
+                      alt="Edit-product"
                       className="h-24 w-full object-cover rounded-md"
                     />
                     <button
@@ -248,7 +250,7 @@ export default function EditProductModal({
               <div className="grid grid-cols-3 gap-2">
                 {previewUrls.map((url, idx) => (
                   <div key={idx} className="relative group">
-                    <img
+                    <Image
                       src={url}
                       alt={`Preview ${idx}`}
                       className="h-24 w-full object-cover rounded-md"

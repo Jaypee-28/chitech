@@ -90,7 +90,7 @@ export default function ProductGrid() {
               >
                 {/* Image container */}
                 <div className="w-full h-48 flex items-center justify-center overflow-hidden mb-3">
-                  <Image
+                  <img
                     src={product.images[0]}
                     alt={product.title}
                     className="object-contain h-full w-full rounded-lg"

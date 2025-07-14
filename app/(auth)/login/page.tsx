@@ -110,7 +110,7 @@ export default function LoginForm() {
           disabled={loading}
           className="w-full flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 rounded-md transition duration-200"
         >
-          <Image src="/google.svg" alt="Google" className="h-5 mr-2" />
+          <img src="/google.svg" alt="Google" className="h-5 mr-2" />
           {loading ? "Processing..." : "Google"}
         </button>
 

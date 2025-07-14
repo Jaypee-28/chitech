@@ -1,3 +1,4 @@
+// app/(user)/dashboard/orders/page.tsx
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
@@ -8,16 +9,25 @@ import mongoose from "mongoose";
 
 export default async function OrdersPage() {
   const session = await getServerSession(authOptions);
-  if (!session) redirect("/login");
+
+  if (!session || !session.user?.id) {
+    redirect("/login");
+  }
 
   await connectToDB();
 
-  // Make sure session.user.id is a valid ObjectId
-  const userId = new mongoose.Types.ObjectId(session.user.id);
+  let orders = [];
 
-  const orders = await Order.find({ user: userId })
-    .sort({ createdAt: -1 })
-    .populate("items.product");
+  try {
+    const userId = new mongoose.Types.ObjectId(session.user.id);
+    orders = await Order.find({ user: userId })
+      .sort({ createdAt: -1 })
+      .populate("items.product");
+  } catch (error) {
+    console.error("Failed to fetch orders:", error);
+    // If anything fails (invalid ID, DB down, etc), return empty
+    orders = [];
+  }
 
   return (
     <div className="p-4 max-w-4xl mx-auto">

@@ -8,9 +8,19 @@ export default function OrderCard({ order }: { order: any }) {
       ? order._id.toHexString()
       : String(order._id || "");
 
-  const firstProduct = order.items?.[0]?.product;
+  const firstItem = order.items?.[0];
+  const firstProduct = firstItem?.product;
   const firstImage = firstProduct?.images?.[0] || null;
   const firstTitle = firstProduct?.title || "Order";
+
+  let formattedDate = "Invalid date";
+  try {
+    if (order.createdAt) {
+      formattedDate = format(new Date(order.createdAt), "MMM d, yyyy");
+    }
+  } catch (err) {
+    console.error("Invalid createdAt date:", order.createdAt);
+  }
 
   return (
     <div className="rounded p-4 shadow-sm">
@@ -20,17 +30,19 @@ export default function OrderCard({ order }: { order: any }) {
           <div className="font-semibold">{firstTitle}</div>
 
           <div className="text-sm">
-            <span className="font-medium">Items:</span> {order.items.length}
+            <span className="font-medium">Items:</span>{" "}
+            {order.items?.length || 0}
           </div>
           <div className="text-sm">
             <span className="font-medium">Total:</span> ₦
-            {order.totalPrice?.toLocaleString()}
+            {order.totalPrice?.toLocaleString() || "0"}
           </div>
           <div className="text-sm capitalize">
-            <span className="font-medium">Payment:</span> {order.paymentMethod}
+            <span className="font-medium">Payment:</span>{" "}
+            {order.paymentMethod || "N/A"}
           </div>
           <div className="text-sm capitalize">
-            <span className="font-medium">Status:</span> {order.status}
+            <span className="font-medium">Status:</span> {order.status || "N/A"}
           </div>
 
           <Link
@@ -43,9 +55,7 @@ export default function OrderCard({ order }: { order: any }) {
 
         {/* RIGHT: Date + Image */}
         <div className="flex flex-col items-end ml-4">
-          <div className="text-sm text-gray-500 mb-2">
-            {format(new Date(order.createdAt), "MMM d, yyyy")}
-          </div>
+          <div className="text-sm text-gray-500 mb-2">{formattedDate}</div>
 
           {firstImage ? (
             <Image

@@ -1,4 +1,4 @@
-// app/(user)/success/[id]/page.tsx
+// ✅ FIXED version: app/(user)/success/[id]/page.tsx
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
@@ -7,14 +7,11 @@ import Order from "@/models/Order";
 import { redirect } from "next/navigation";
 import SuccessPageClient from "./SuccessPageClient";
 
-// ✅ Define a proper type for props
-type Props = {
-  params: {
-    id: string;
-  };
-};
-
-export default async function OrderSuccessPage({ params }: Props) {
+export default async function OrderSuccessPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const session = await getServerSession(authOptions);
   if (!session) redirect("/login");
 

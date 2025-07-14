@@ -7,11 +7,12 @@ import Order from "@/models/Order";
 import { redirect } from "next/navigation";
 import SuccessPageClient from "./SuccessPageClient";
 
-interface Props {
+// ✅ Define a proper type for props
+type Props = {
   params: {
     id: string;
   };
-}
+};
 
 export default async function OrderSuccessPage({ params }: Props) {
   const session = await getServerSession(authOptions);

@@ -176,12 +176,14 @@ export default function Header({
               )}
             </div>
           ) : (
-            <button
-              onClick={() => router.push("/login")}
-              className="text-sm font-semibold px-4 py-1.5 rounded-md border border-gray-800 hover:bg-gray-100 transition"
-            >
-              Login
-            </button>
+            <Link href="/login">
+              <button
+                onClick={() => router.push("/login")}
+                className="text-sm font-semibold px-4 py-1.5 rounded-md border border-gray-800 hover:bg-gray-100 transition"
+              >
+                Login
+              </button>
+            </Link>
           )}
         </div>
       </header>

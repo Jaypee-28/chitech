@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
           email,
           amount,
           reference: orderId,
-          callback_url: `https://fa73caba4b28.ngrok-free.app/payment/callback`,
+          callback_url: `https://chitechglobal.vercel.app/payment/callback`,
         }),
       }
     );

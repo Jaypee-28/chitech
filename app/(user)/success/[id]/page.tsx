@@ -1,16 +1,21 @@
-// app/(user)/success/[id]/page.tsx
-import Link from "next/link";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { redirect } from "next/navigation";
+"use client";
 
-export default async function OrderSuccessPage() {
-  const session = await getServerSession(authOptions);
-  if (!session) redirect("/login");
+import { useEffect } from "react";
+import { useCartStore } from "@/stores/useCartStore";
+import Link from "next/link";
+
+export default function SuccessPageClient({ userName }: { userName: string }) {
+  const clearCart = useCartStore((state) => state.clearCart);
+
+  useEffect(() => {
+    clearCart(); // ✅ Clear cart after successful payment
+  }, [clearCart]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 text-center">
-      <h1 className="text-2xl font-semibold mb-4">Thank you for your order!</h1>
+      <h1 className="text-2xl font-semibold mb-4">
+        Thank you for your order, {userName}!
+      </h1>
       <p className="text-gray-600 mb-6">We appreciate your patronage.</p>
       <div className="flex gap-4">
         <Link

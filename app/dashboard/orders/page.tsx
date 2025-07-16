@@ -11,6 +11,7 @@ export default async function OrdersPage() {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user?.id) {
+    console.error("❌ No session or session.user.id");
     redirect("/login");
   }
 
@@ -19,13 +20,15 @@ export default async function OrdersPage() {
   let orders = [];
 
   try {
+    // Detect if user field in Order model is ObjectId or String
+    // If your Order model uses ObjectId:
     const userId = new mongoose.Types.ObjectId(session.user.id);
+
     orders = await Order.find({ user: userId })
       .sort({ createdAt: -1 })
       .populate("items.product");
   } catch (error) {
-    console.error("Failed to fetch orders:", error);
-    // If anything fails (invalid ID, DB down, etc), return empty
+    console.error("❌ Failed to fetch orders:", error);
     orders = [];
   }
 

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { format } from "date-fns";
+import Product from "@/models/Product";
 
 export default function OrderCard({ order }: { order: any }) {
   const orderId =

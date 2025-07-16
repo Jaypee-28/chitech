@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   creator: "Chitech",
   metadataBase: new URL("https://chitechglobal.com.ng"),
   openGraph: {
-    title: "Chitech - Gadgets, Laptops & Accessories",
+    title: "Chitech Global - Laptops, Gadgets & Accessories",
     description:
       "Discover top tech deals on laptops, gadgets, and more at Chitech. Fast nationwide delivery and secure payments.",
     url: "https://chitechglobal.com.ng",
@@ -49,13 +49,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Chitech - Affordable Tech in Nigeria",
+    title: "Chitech Global - Affordable Tech in Nigeria",
     description:
       "Explore the best deals on gadgets and electronics. Chitech delivers fast and securely across Nigeria.",
     creator: "@chitech_ng",
   },
   icons: {
-    icon: "/logo.JPG",
+    icon: "/logo.jpg",
   },
 };
 

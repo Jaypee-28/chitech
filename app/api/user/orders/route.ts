@@ -19,14 +19,16 @@ export async function GET(req: NextRequest) {
   try {
     await connectToDB();
     const userId = new mongoose.Types.ObjectId(session.user.id);
+    console.log("👤 Fetching orders for user ID:", userId);
 
     const orders = await Order.find({ user: userId })
       .populate("items.product")
       .sort({ createdAt: -1 });
 
+    console.log(`✅ Found ${orders.length} orders for user`);
     return NextResponse.json(orders, { status: 200 });
   } catch (error) {
-    console.error("Fetch user orders error:", error);
+    console.error("❌ Fetch user orders error:", error);
     return NextResponse.json(
       { message: "Failed to fetch order history" },
       { status: 500 }
@@ -50,7 +52,6 @@ export async function POST(req: Request) {
 
   try {
     const body = await req.json();
-
     const { items, deliveryType, deliveryFee, shipping, paymentMethod } = body;
 
     if (
@@ -98,7 +99,7 @@ export async function POST(req: Request) {
 
     // ✅ Calculate ETA
     const now = new Date();
-    let deliveryEta: string | undefined = undefined;
+    let deliveryEta: string | undefined;
 
     if (deliveryType === "standard") {
       const etaStart = new Date(now);
@@ -127,18 +128,17 @@ export async function POST(req: Request) {
     }
 
     const orderData = {
-      user: new mongoose.Types.ObjectId(session.user.id),
+      user: user._id, // ✅ Use the correct user ID from DB
       items,
       totalPrice,
       deliveryType,
       deliveryFee,
-      deliveryEta, // ✅ new ETA field
+      deliveryEta,
       shipping,
       paymentMethod: paymentMethod.toLowerCase(),
     };
 
     const order = await Order.create(orderData);
-
     const populatedOrder = await Order.findById(order._id).populate(
       "items.product"
     );
@@ -155,7 +155,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(order, { status: 201 });
   } catch (err: any) {
-    console.error("Order creation error:", err);
+    console.error("❌ Order creation error:", err);
     return NextResponse.json(
       { error: "Order creation failed", details: err.message },
       { status: 500 }

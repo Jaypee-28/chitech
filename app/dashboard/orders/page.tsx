@@ -5,6 +5,7 @@ import OrderCard from "@/components/user/order/OrderCard";
 import { connectToDB } from "@/lib/mongoose";
 import Order from "@/models/Order";
 import mongoose from "mongoose";
+import Product from "@/models/Product";
 
 export default async function OrdersPage() {
   const session = await getServerSession(authOptions);

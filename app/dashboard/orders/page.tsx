@@ -1,4 +1,3 @@
-// app/(user)/dashboard/orders/page.tsx
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
@@ -16,17 +15,19 @@ export default async function OrdersPage() {
   }
 
   await connectToDB();
+  console.log("✅ Connected to DB");
 
   let orders = [];
 
   try {
-    // Detect if user field in Order model is ObjectId or String
-    // If your Order model uses ObjectId:
     const userId = new mongoose.Types.ObjectId(session.user.id);
+    console.log("👤 Fetching orders for user ID:", session.user.id);
 
     orders = await Order.find({ user: userId })
       .sort({ createdAt: -1 })
       .populate("items.product");
+
+    console.log(`✅ Found ${orders.length} orders for user`);
   } catch (error) {
     console.error("❌ Failed to fetch orders:", error);
     orders = [];

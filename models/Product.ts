@@ -45,6 +45,7 @@ const ProductSchema = new Schema(
   { timestamps: true }
 );
 
+// ✅ Prevent model overwrite in serverless (Vercel)
 const Product = models.Product || model("Product", ProductSchema);
 
 export default Product;

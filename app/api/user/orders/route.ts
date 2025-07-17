@@ -3,12 +3,21 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/route";
 import { connectToDB } from "@/lib/mongoose";
-import Order from "@/models/Order";
-import User from "@/models/User";
-import mongoose from "mongoose";
+import mongoose, { models } from "mongoose";
 import { sendOrderConfirmation, sendNewOrderNotification } from "@/lib/email";
 
-// ✅ Fetch user orders
+// ✅ Register all models
+import OrderSchema from "@/models/Order";
+import UserSchema from "@/models/User";
+import ProductSchema from "@/models/Product";
+
+// Manually register models if not yet registered
+const User = models.User || mongoose.model("User", UserSchema.schema);
+const Product =
+  models.Product || mongoose.model("Product", ProductSchema.schema);
+const Order = models.Order || mongoose.model("Order", OrderSchema.schema);
+
+// ✅ GET - Fetch user orders
 export async function GET(req: NextRequest) {
   const session = await getServerSession(authOptions);
 
@@ -28,7 +37,8 @@ export async function GET(req: NextRequest) {
     console.log(`✅ Found ${orders.length} orders for user`);
     return NextResponse.json(orders, { status: 200 });
   } catch (error) {
-    console.error("❌ Fetch user orders error:", error);
+    console.error("❌ Failed to fetch orders:", error);
+    console.log("Registered models:", Object.keys(models));
     return NextResponse.json(
       { message: "Failed to fetch order history" },
       { status: 500 }
